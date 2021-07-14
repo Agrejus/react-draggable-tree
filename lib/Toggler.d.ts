@@ -1,6 +1,5 @@
 import React = require('react');
 export interface TogglerProps {
-    visible: boolean;
     collapsed: boolean;
     onClick: (ev: React.MouseEvent<Element>) => void;
 }

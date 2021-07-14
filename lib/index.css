@@ -28,10 +28,6 @@
   border-right: 1px solid gray;
   border-bottom: 1px solid gray;
   transform: rotate(45deg) translate(-2px, -2px);
-  visibility: hidden;
-}
-.ReactDraggableTree_toggler-visible:before {
-  visibility: visible;
 }
 .ReactDraggableTree_toggler-collapsed:before {
   transform: rotate(-45deg) translate(-2px, -2px);

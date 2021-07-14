@@ -157,7 +157,7 @@ class TreeView extends React.Component<TreeProps, {}> {
         onClick={ev => this.onClickRow(rowInfo, ev)}
         draggable={true} onDragStart={onDragStart} onDragEnd={onDragEnd}
       >
-        <CustomToggler visible={!!children} collapsed={collapsed} onClick={onTogglerClick} />
+        {children && children.length > 0 && <CustomToggler collapsed={collapsed} onClick={onTogglerClick} />}
         <RowContent {...rowInfo} />
       </div>
     )
