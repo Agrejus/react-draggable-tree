@@ -36,7 +36,7 @@ export interface TreeProps {
 }
 
 export
-class TreeView extends React.Component<TreeProps, {}> {
+  class TreeView extends React.Component<TreeProps, {}> {
   private element: HTMLElement
   private dropIndicator: DropIndicator
   private infoToPath = new Map<TreeRowInfo, number[]>()
@@ -45,7 +45,7 @@ class TreeView extends React.Component<TreeProps, {}> {
   private keyToInfo = new Map<Key, TreeRowInfo>()
   private rootInfo: TreeRowInfo
 
-  render () {
+  render() {
     const { root, rowHeight, indent } = this.propsWithDefaults()
     const children = root.children || []
     this.clearRows()
@@ -66,7 +66,7 @@ class TreeView extends React.Component<TreeProps, {}> {
     )
   }
 
-  private removeAncestorsFromSelection (selection: Set<Key>) {
+  private removeAncestorsFromSelection(selection: Set<Key>) {
     const newSelection = new Set(selection)
     for (const { path } of this.keysToInfos(selection)) {
       for (let i = 1; i < path.length; ++i) {
@@ -80,20 +80,20 @@ class TreeView extends React.Component<TreeProps, {}> {
     return newSelection
   }
 
-  private propsWithDefaults () {
+  private propsWithDefaults() {
     return Object.assign({}, {
       indent: 24
     }, this.props)
   }
 
-  private clearRows () {
+  private clearRows() {
     this.visibleInfos = []
     this.pathToInfo.clear()
     this.infoToPath.clear()
     this.keyToInfo.clear()
   }
 
-  private addRowInfo (rowInfo: TreeRowInfo) {
+  private addRowInfo(rowInfo: TreeRowInfo) {
     this.infoToPath.set(rowInfo, rowInfo.path)
     this.pathToInfo.set(rowInfo.path.join(), rowInfo)
     if (rowInfo.visible) {
@@ -102,7 +102,7 @@ class TreeView extends React.Component<TreeProps, {}> {
     this.keyToInfo.set(rowInfo.node.key, rowInfo)
   }
 
-  private renderNode (node: TreeNode, path: number[], visible: boolean): JSX.Element[] {
+  private renderNode(node: TreeNode, path: number[], visible: boolean): JSX.Element[] {
     const { indent, rowHeight, selectedKeys } = this.propsWithDefaults()
     const { key } = node
 
@@ -157,7 +157,7 @@ class TreeView extends React.Component<TreeProps, {}> {
         onClick={ev => this.onClickRow(rowInfo, ev)}
         draggable={true} onDragStart={onDragStart} onDragEnd={onDragEnd}
       >
-        {children && children.length > 0 && <CustomToggler collapsed={collapsed} onClick={onTogglerClick} />}
+        <CustomToggler visible={children != null && children.length > 0} collapsed={collapsed} onClick={onTogglerClick} />
         <RowContent {...rowInfo} />
       </div>
     )
@@ -174,7 +174,7 @@ class TreeView extends React.Component<TreeProps, {}> {
     }
   }
 
-  private keysToInfos (keys: Set<Key>) {
+  private keysToInfos(keys: Set<Key>) {
     const infos: TreeRowInfo[] = []
     keys.forEach(key => {
       const info = this.keyToInfo.get(key)
@@ -186,7 +186,7 @@ class TreeView extends React.Component<TreeProps, {}> {
     return infos
   }
 
-  private updateDropIndicator (target: DropTarget | undefined) {
+  private updateDropIndicator(target: DropTarget | undefined) {
     if (target) {
       const { type, index, depth } = target
       this.dropIndicator.setState({ type, index, depth })
@@ -252,7 +252,7 @@ class TreeView extends React.Component<TreeProps, {}> {
     this.updateDropIndicator(undefined)
   }
 
-  private getDropTarget (ev: {clientX: number, clientY: number}): DropTarget {
+  private getDropTarget(ev: { clientX: number, clientY: number }): DropTarget {
     const { rowHeight, indent } = this.propsWithDefaults()
     const rect = this.element.getBoundingClientRect()
     const x = ev.clientX - rect.left + this.element.scrollLeft
@@ -304,7 +304,7 @@ class TreeView extends React.Component<TreeProps, {}> {
     }
   }
 
-  private canDrop (destInfo: TreeRowInfo, destIndex: number) {
+  private canDrop(destInfo: TreeRowInfo, destIndex: number) {
     const { selectedKeys } = this.props
     const { path } = destInfo
     for (let i = 0; i < path.length; ++i) {
